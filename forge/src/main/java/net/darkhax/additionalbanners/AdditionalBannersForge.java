@@ -1,11 +1,11 @@
-package net.darkhax.additionalbanners;
+package ax.a0.bannerexpansion;
 
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(Constants.MOD_ID)
-public class AdditionalBannersForge {
+public class BannerExpansionForge {
 
-    public AdditionalBannersForge() {
+    public BannerExpansionForge() {
 
         Content.init();
     }

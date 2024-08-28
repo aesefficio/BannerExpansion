@@ -1,8 +1,8 @@
-package net.darkhax.additionalbanners;
+package ax.a0.bannerexpansion;
 
 import net.fabricmc.api.ModInitializer;
 
-public class AdditionalBannersFabric implements ModInitializer {
+public class BannerExpansionFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {

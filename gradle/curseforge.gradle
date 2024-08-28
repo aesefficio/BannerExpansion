@@ -172,7 +172,7 @@ if (project.hasProperty('curse_discord_webhook')) {
 
 def canTwitter = project.hasProperty('twitter_api_key') && project.hasProperty('twitter_api_key_secret') && project.hasProperty('twitter_access_token') && project.hasProperty('twitter_access_token_secret')
 
-task postTweet(type: net.darkhax.tweedle.TaskPostTweet) {
+task postTweet(type: ax.a0.tweedle.TaskPostTweet) {
 
     onlyIf {
 

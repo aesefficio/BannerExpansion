@@ -21,7 +21,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.darkhax.additionalbanners.AdditionalBannersFabric"
+      "ax.a0.bannerexpansion.BannerExpansionFabric"
     ]
   },
   "depends": {

@@ -1,8 +1,8 @@
 {
   "values": [
-    "additionalbanners:scales_down",
-    "additionalbanners:scales_up",
-    "additionalbanners:scales_left",
-    "additionalbanners:scales_right"
+    "bannerexpansion:scales_down",
+    "bannerexpansion:scales_up",
+    "bannerexpansion:scales_left",
+    "bannerexpansion:scales_right"
   ]
 }

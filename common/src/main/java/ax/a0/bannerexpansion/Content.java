@@ -1,6 +1,6 @@
-package net.darkhax.additionalbanners;
+package ax.a0.bannerexpansion;
 
-import net.darkhax.additionalbanners.config.TradeConfig;
+import ax.a0.bannerexpansion.config.TradeConfig;
 import net.darkhax.bookshelf.api.Services;
 import net.darkhax.bookshelf.api.registry.IRegistryObject;
 import net.darkhax.bookshelf.api.registry.RegistryDataProvider;

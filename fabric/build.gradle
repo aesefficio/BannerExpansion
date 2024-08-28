@@ -1,7 +1,5 @@
 plugins {
     id 'fabric-loom'
-    id 'net.darkhax.curseforgegradle'
-    id 'com.modrinth.minotaur'
     id 'idea'
 }
 
@@ -45,22 +43,6 @@ processResources {
 
     def buildProps = project.properties.clone()
 
-    if (project.hasProperty('patreon')) {
-
-        def supporters = new ArrayList<String>()
-
-        for (entry in project.ext.patreon.pledges) {
-
-            def pledge = entry.value;
-
-            if (pledge.isValid()) {
-
-                supporters.add(pledge.getDisplayName())
-            }
-        }
-
-        buildProps.put('mod_supporters', supporters.join(/","/))
-    }
 
     filesMatching(['fabric.mod.json', 'pack.mcmeta']) {
 
@@ -78,89 +60,4 @@ tasks.withType(Javadoc).configureEach {
 
 tasks.named("sourcesJar", Jar) {
     from(project(':common').sourceSets.main.allSource)
-}
-
-// -- MAVEN PUBLISHING --
-project.publishing {
-
-    publications {
-
-        mavenJava(MavenPublication) {
-
-            artifactId = base.archivesName.get()
-            from components.java
-        }
-    }
-
-    repositories {
-
-        maven {
-
-            // Sets maven credentials if they are provided. This is generally
-            // only used for external/remote uploads.
-            if (project.hasProperty('mavenUsername') && project.hasProperty('mavenPassword')) {
-
-                credentials {
-
-                    username findProperty('mavenUsername')
-                    password findProperty('mavenPassword')
-                }
-            }
-
-            url getDefaultString('mavenURL', 'undefined', true)
-        }
-    }
-}
-
-// CurseForge Publishing
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-
-    apiToken = findProperty('curse_auth')
-
-    def mainFile = upload(curse_project, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-    mainFile.releaseType = 'release'
-    mainFile.addGameVersion('Client', 'Server')
-    mainFile.changelogType = 'markdown'
-    mainFile.changelog = project.ext.mod_changelog
-    mainFile.addJavaVersion('Java 17')
-    mainFile.addRequirement('bookshelf')
-    mainFile.addModLoader('Fabric')
-    mainFile.addModLoader('Quilt')
-
-    // Append Patreon Supporters
-    def patreonInfo = project.findProperty('patreon')
-
-    if (patreonInfo) {
-        mainFile.changelog += "\n\nThis project is made possible by [Patreon](${patreonInfo.campaignUrlTracked}) support from players like you. Thank you!\n\n${patreonInfo.pledgeLog}"
-    }
-
-    doLast {
-
-        if (project.hasProperty('mod_homepage')) {
-
-            project.ext.curse_file_url = "${mod_homepage}/files/${mainFile.curseFileId}"
-        }
-    }
-}
-
-// Modrinth
-modrinth {
-
-    def patreonInfo = project.findProperty('patreon')
-    def changelogText = project.ext.mod_changelog
-
-    if (patreonInfo) {
-        changelogText += "\n\nThis project is made possible by [Patreon](${patreonInfo.campaignUrlTracked}) support from players like you. Thank you!\n\n${patreonInfo.pledgeLog}"
-    }
-
-    token.set(project.findProperty('modrinth_auth'))
-    projectId.set(modrinth_project)
-    changelog = changelogText
-    versionName.set("${mod_name}-Fabric-${minecraft_version}-$version")
-    versionType.set("release")
-    uploadFile.set(tasks.remapJar)
-    dependencies {
-        required.project('fabric-api')
-        required.project('bookshelf-lib')
-    }
 }
