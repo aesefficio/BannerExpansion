@@ -41,20 +41,29 @@ project.publishing {
 
     repositories {
 
+        mavenCentral()
+
         maven {
+            name = 'SpongeMixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
 
-            // Sets maven credentials if they are provided. This is generally
-            // only used for external/remote uploads.
-            if (project.hasProperty('mavenUsername') && project.hasProperty('mavenPassword')) {
+        maven {
+            name = 'BlameJaredMavenCrTBookshelf'
+            url = 'https://maven.blamejared.com'
+        }
+        maven {
+            name = 'Forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'ModMenu'
+            url = 'https://maven.terraformersmc.com/releases/'
+        }
 
-                credentials {
-
-                    username findProperty('mavenUsername')
-                    password findProperty('mavenPassword')
-                }
-            }
-
-            url getDefaultString('mavenURL', 'undefined', true)
+        maven {
+            name = 'JitPack'
+            url = 'https://jitpack.io'
         }
     }
 }

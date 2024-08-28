@@ -70,5 +70,10 @@ subprojects {
             name = 'JitPack'
             url = 'https://jitpack.io'
         }
+        maven {
+            name = 'Forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
     }
+
 }
